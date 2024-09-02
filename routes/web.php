@@ -24,9 +24,8 @@ Route::middleware('auth')->group(function () {
 Route::resource('accounts', AccountController::class)->middleware(['auth']);
 
 // Маршруты для управления доменами
-Route::middleware(['auth'])->group(function () {
-    Route::resource('accounts.domains', DomainController::class)->shallow();
-});
+Route::resource('accounts.domains', DomainController::class)->shallow()->middleware(['auth']);
+
 // Маршруты для управления правилами Page Rules
 Route::resource('domains.page-rules', PageRuleController::class)->shallow()->middleware(['auth']);
 

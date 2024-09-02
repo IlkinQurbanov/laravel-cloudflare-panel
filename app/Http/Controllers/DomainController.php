@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\Domain;
 use App\Models\Account;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Http;
+
 
 class DomainController extends Controller
 {
@@ -25,11 +27,17 @@ class DomainController extends Controller
             'name' => 'required',
             'ssl_mode' => 'required|in:off,flexible,full,full_strict',
         ]);
-
-        $account->domains()->create($request->all());
-
-        // TODO: Add synchronization with Cloudflare API
-
+    
+        $domain = $account->domains()->create($request->all());
+    
+        // Synchronize with Cloudflare API
+        Http::withHeaders([
+            'Authorization' => 'Bearer ' . $account->api_key,
+        ])->post('https://api.cloudflare.com/client/v4/zones', [
+            'name' => $domain->name,
+            'ssl' => $domain->ssl_mode,
+        ]);
+    
         return redirect()->route('accounts.domains.index', $account)->with('success', 'Domain created successfully.');
     }
 
