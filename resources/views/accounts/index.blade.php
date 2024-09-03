@@ -19,12 +19,15 @@
                 <tr>
                     <td class="px-6 py-4 text-sm font-medium text-gray-900">{{ $account->name }}</td>
                     <td class="px-6 py-4 text-sm text-gray-500">{{ $account->email }}</td>
-                    <td class="px-6 py-4 text-sm font-medium">
+                    <td class="px-6 py-4 text-sm font-medium flex space-x-2">
                         <a href="{{ route('accounts.show', $account) }}" class="inline-block px-4 py-2 bg-teal-500 text-white rounded-lg hover:bg-teal-600 focus:outline-none focus:ring-2 focus:ring-teal-500 focus:ring-opacity-50">
                             View
                         </a>
                         <a href="{{ route('accounts.edit', $account) }}" class="inline-block px-4 py-2 bg-yellow-500 text-white rounded-lg hover:bg-yellow-600 focus:outline-none focus:ring-2 focus:ring-yellow-500 focus:ring-opacity-50">
                             Edit
+                        </a>
+                        <a href="{{ route('accounts.domains.index', $account) }}" class="inline-block px-4 py-2 bg-green-500 text-white rounded-lg hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-opacity-50">
+                            Domains
                         </a>
                         <form action="{{ route('accounts.destroy', $account) }}" method="POST" style="display:inline;">
                             @csrf

@@ -19,7 +19,10 @@
                 <tr>
                     <td class="px-6 py-4 text-sm text-gray-900">{{ $domain->name }}</td>
                     <td class="px-6 py-4 text-sm text-gray-500">{{ $domain->ssl_mode }}</td>
-                    <td class="px-6 py-4 text-sm">
+                    <td class="px-6 py-4 text-sm flex space-x-2">
+                        <a href="{{ route('domains.page-rules.index', $domain->id) }}" class="inline-block px-4 py-2 bg-green-600 text-white rounded-lg shadow hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-opacity-50 mr-2">
+                            Page Rules
+                        </a>
                         <a href="{{ route('domains.edit', $domain->id) }}" class="inline-block px-4 py-2 bg-blue-600 text-white rounded-lg shadow hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50 mr-2">
                             Edit
                         </a>

@@ -60,7 +60,6 @@ class DomainController extends Controller
 
         $domain->update($request->all());
 
-        // TODO: Add synchronization with Cloudflare API
 
         return redirect()->route('accounts.domains.index', $domain->account)->with('success', 'Domain updated successfully.');
     }
@@ -69,7 +68,6 @@ class DomainController extends Controller
     {
         $domain->delete();
 
-        // TODO: Add synchronization with Cloudflare API
 
         return redirect()->route('accounts.domains.index', $domain->account)->with('success', 'Domain deleted successfully.');
     }

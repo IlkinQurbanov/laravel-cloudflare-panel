@@ -54,15 +54,16 @@ class PageRuleController extends Controller
 
         // Синхронизация с Cloudflare API
 
-        return redirect()->route('page-rules.index')->with('success', 'Page Rule updated successfully.');
+        return redirect()->route('domains.page-rules.index', $pageRule->domain_id)->with('success', 'Page Rule updated successfully.');
     }
 
     public function destroy(PageRule $pageRule)
     {
+        $domainId = $pageRule->domain_id;
         $pageRule->delete();
 
         // Синхронизация с Cloudflare API
 
-        return redirect()->route('page-rules.index')->with('success', 'Page Rule deleted successfully.');
+        return redirect()->route('domains.page-rules.index', $domainId)->with('success', 'Page Rule deleted successfully.');
     }
 }
