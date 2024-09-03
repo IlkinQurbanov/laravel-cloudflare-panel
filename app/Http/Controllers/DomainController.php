@@ -7,7 +7,6 @@ use App\Models\Account;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
 
-
 class DomainController extends Controller
 {
     public function index(Account $account)
@@ -27,9 +26,9 @@ class DomainController extends Controller
             'name' => 'required',
             'ssl_mode' => 'required|in:off,flexible,full,full_strict',
         ]);
-    
+
         $domain = $account->domains()->create($request->all());
-    
+
         // Synchronize with Cloudflare API
         Http::withHeaders([
             'Authorization' => 'Bearer ' . $account->api_key,
@@ -37,7 +36,7 @@ class DomainController extends Controller
             'name' => $domain->name,
             'ssl' => $domain->ssl_mode,
         ]);
-    
+
         return redirect()->route('accounts.domains.index', $account)->with('success', 'Domain created successfully.');
     }
 
@@ -48,8 +47,10 @@ class DomainController extends Controller
 
     public function edit(Domain $domain)
     {
-        return view('domains.edit', compact('domain'));
+        $account = $domain->account; 
+        return view('domains.edit', compact('domain', 'account'));
     }
+    
 
     public function update(Request $request, Domain $domain)
     {

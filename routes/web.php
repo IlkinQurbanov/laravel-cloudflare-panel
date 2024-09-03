@@ -19,14 +19,13 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-
-// Маршруты для управления аккаунтами Cloudflare
+// Routes for managing Cloudflare accounts
 Route::resource('accounts', AccountController::class)->middleware(['auth']);
 
-// Маршруты для управления доменами
+// Routes for managing domains under accounts
 Route::resource('accounts.domains', DomainController::class)->shallow()->middleware(['auth']);
 
-// Маршруты для управления правилами Page Rules
+// Routes for managing Page Rules under domains
 Route::resource('domains.page-rules', PageRuleController::class)->shallow()->middleware(['auth']);
 
 require __DIR__.'/auth.php';
